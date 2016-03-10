@@ -1,2 +1,4 @@
-
-/* YOUR CSS STYLES */
+/* CSS STYLES */
+.panel-body {
+  min-height: 140px;
+}
