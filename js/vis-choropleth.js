@@ -1,3 +1,9 @@
+// Constants
+// var POP = ,
+//     RISK = ,
+//     HIGH_RISK = ,
+//     SUS_CASE
+
 // Create svg
 var margin = {
   top: 40,
@@ -24,6 +30,20 @@ var proj = d3.geo.mercator()
 var path = d3.geo.path()
       .projection(proj);
 
+// Data map
+var dataMap = d3.map();
+
+// Create quantize color scale
+var quantize = d3.scale.quantize();
+    // .domain([0, 0.15])
+    // .range(d3.range(9).map(function(i) { return "risk-q" + i + "-9"; }));
+
+// Make data accessor var
+var africaData = {};
+
+var africa,
+    filterMalaria;
+
 // Use the Queue.js library to read multiple files
 queue()
   .defer(d3.json, "data/africa.topo.json")
@@ -34,10 +54,7 @@ queue()
       consoloe.log("An Error Occured!");
     } else {
       // Unpack topoJSON to geoJson
-      var africa = topojson.feature(mapData, mapData.objects.collection).features;
-
-      // Make data accessor var
-      var africaData = {};
+      africa = topojson.feature(mapData, mapData.objects.collection).features;
 
       // console.log(africa);
 
@@ -52,34 +69,34 @@ queue()
       // Limit malaria dataset to just Africa
       var target = "African";
 
-      var filter = malariaData.filter(function(element, index, array) {
+      filterMalaria = malariaData.filter(function(element, index, array) {
         if (element.WHO_region == target) {
           return element;
         }
       });
 
       // Cycle through malaria data and attach new properties to geoJSON
-      filter.forEach(function(row) {
+      filterMalaria.forEach(function(row) {
         // Set a variable equal to the propeties reference
         prop = africaData[row.Code];
         // console.log(row.Code);
 
         // Join data
-        prop.WHO_region = row.WHO_region;
-        prop.Country = row.Country;
-        prop.UN_population = row.UN_population;
-        prop.At_risk = row.At_risk;
-        prop.At_high_risk = row.At_high_risk;
-        prop.Suspected_malaria_cases = row.Suspected_malaria_cases;
-        prop.Malaria_cases = row.Malaria_cases;
+        // prop.WHO_region = row.WHO_region;
+        // prop.Country = row.Country;
+        // prop.UN_population = removeString(row.UN_population);
+        // prop.At_risk = removeString(row.At_risk);
+        // prop.At_high_risk = removeString(row.At_high_risk);
+        // prop.Suspected_malaria_cases = removeString(row.Suspected_malaria_cases);
+        // prop.Malaria_cases = removeString(row.Malaria_cases);
+      //   prop.WHO_region = row.WHO_region;
+        // prop.Country = row.Country;
+        row.UN_population = removeString(row.UN_population);
+        row.At_risk = removeString(row.At_risk);
+        row.At_high_risk = removeString(row.At_high_risk);
+        row.Suspected_malaria_cases = removeString(row.Suspected_malaria_cases);
+        row.Malaria_cases = removeString(row.Malaria_cases);
       });
-
-      // Draw geo boundaries
-      svg.selectAll("path")
-          .data(africa)
-        .enter().append("path")
-          .attr("d", path);
-
 
       // Update choropleth
       updateChoropleth();
@@ -88,7 +105,67 @@ queue()
 
 
 function updateChoropleth() {
+  // Get user selection for data view
+  var currentSelection = d3.select("#chart-data-select").property("value");
+
+  // Set data map
+  filterMalaria.forEach(function(d) {
+    dataMap.set(d.Code, d[currentSelection]);
+  });
+
+  // console.log(dataMap);
+  // Update domain
+  quantize.domain(d3.extent(filterMalaria, function(d) { return d[currentSelection]; }))
+          .range(d3.range(9).map(function(i) { return "risk-q" + i + "-9"; }));
 
   // --> Choropleth implementation
+  // Draw geo boundaries
+  // Enter
+  svg.selectAll("path")
+      .data(africa)
+    .enter().append("path")
+      .attr("class", function(d) {
+        var id = dataMap.get(d.properties.adm0_a3_is);
+        if (id) {
+          return "country " + quantize(dataMap.get(d.properties.adm0_a3_is));
+        } else {
+          return "country no-data";
+        }
+      })
+      // .attr("class", function(d){return d.properties.adm0_a3_is;})
+      .attr("d", path);
 
+  // Update
+  svg.selectAll(".country")
+  // .transition()
+  // .duration(2500)
+  .attr("class", function(d) {
+    var id = dataMap.get(d.properties.adm0_a3_is);
+    if (id) {
+      return "country " + quantize(dataMap.get(d.properties.adm0_a3_is));
+    } else {
+      return "country no-data";
+    }
+  });
+
+}
+
+// Helper
+function removeString(input) {
+  if (input == "N/A") {
+    return 0;
+  } else {
+    return +input;
+  }
+}
+
+// Update data view
+function updateDataView() {
+  var currentSelection = d3.select("#chart-data-select").property("value");
+
+}
+
+// Hover
+function mapHover(data) {
+  // console.log(data.);
 }

@@ -120,8 +120,22 @@
     </div>
     <!-- /.row -->
 
-    <!-- Map -->
+    <!-- Map row -->
     <div class="row">
+      <!-- User input -->
+			<div id="chart-data" class="col-md-6">
+				<form class="time-period-form form-inline">
+					<label>Chart Data: </label>
+					<select id="chart-data-select" class="form-control" onchange="updateChoropleth()">
+					  <option value="UN_population">UN population</option>
+					  <option value="At_risk">At risk</option>
+					  <option value="At_high_risk">At High risk</option>
+					  <option value="Suspected_malaria_cases">Suspected malaria cases</option>
+					  <option value="Malaria_cases">Malaria cases</option>
+					</select>
+				</form>
+			</div>
+      <!-- Map -->
       <div class="col-lg-12"><div id="map-area"></div></div>
     </div>
 
