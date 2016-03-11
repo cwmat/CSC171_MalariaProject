@@ -50,7 +50,7 @@ queue()
       });
 
       // Limit malaria dataset to just Africa
-      var target = "Africa";
+      var target = "African";
 
       var filter = malariaData.filter(function(element, index, array) {
         if (element.WHO_region == target) {
@@ -64,7 +64,6 @@ queue()
         prop = africaData[row.Code];
         // console.log(row.Code);
 
-
         // Join data
         prop.WHO_region = row.WHO_region;
         prop.Country = row.Country;
@@ -73,10 +72,7 @@ queue()
         prop.At_high_risk = row.At_high_risk;
         prop.Suspected_malaria_cases = row.Suspected_malaria_cases;
         prop.Malaria_cases = row.Malaria_cases;
-        console.log(prop);
       });
-
-      // console.log(africaData.AGO);
 
       // Draw geo boundaries
       svg.selectAll("path")
