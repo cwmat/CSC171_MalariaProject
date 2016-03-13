@@ -4,13 +4,42 @@
 }
 
 /* At risk color ramp */
-.risk-q0-9 { fill: rgb(247,251,255); }
-.risk-q1-9 { fill: rgb(222,235,247); }
-.risk-q2-9 { fill: rgb(198,219,239); }
-.risk-q3-9 { fill: rgb(158,202,225); }
-.risk-q4-9 { fill: rgb(107,174,214); }
-.risk-q5-9 { fill: rgb(66,146,198); }
-.risk-q6-9 { fill: rgb(33,113,181); }
-.risk-q7-9 { fill: rgb(8,81,156); }
-.risk-q8-9 { fill: rgb(8,48,107); }
+.risk-q0-9 { fill: #ffffcc; }
+.risk-q1-9 { fill: #ffeda0; }
+.risk-q2-9 { fill: #fed976; }
+.risk-q3-9 { fill: #feb24c; }
+.risk-q4-9 { fill: #fd8d3c; }
+.risk-q5-9 { fill: #fc4e2a; }
+.risk-q6-9 { fill: #e31a1c; }
+.risk-q7-9 { fill: #bd0026; }
+.risk-q8-9 { fill: #800026; }
 .no-data { fill: rgb(129, 129, 129); }
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}

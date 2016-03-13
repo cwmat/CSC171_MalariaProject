@@ -118,6 +118,30 @@ function updateChoropleth() {
   quantize.domain(d3.extent(filterMalaria, function(d) { return d[currentSelection]; }))
           .range(d3.range(9).map(function(i) { return "risk-q" + i + "-9"; }));
 
+  // Initialize tool tip
+	var tip = d3.tip()
+              .attr('class', 'd3-tip')
+              .offset([-50, 0])
+              .html(function(d) {
+                var id = filterMalaria.filter(function(item) { if (item.Code == d.properties.adm0_a3_is) {return item;}})[0];
+                // console.log(id.Country);
+                var tooltip;
+                if (id) {
+                  tooltip = "<p>" + id.Country +
+                  "</p><p>" + id.UN_population +
+                  "</p><p>" + id.At_risk +
+                  "</p><p>" + id.At_high_risk +
+                  "</p><p>" + id.Suspected_malaria_cases +
+                  "</p><p>" + id.Malaria_cases + "</p>";
+                } else {
+                  tooltip = "<p>No Data</p>"
+                }
+
+                return tooltip;
+              });
+
+	svg.call(tip);
+
   // --> Choropleth implementation
   // Draw geo boundaries
   // Enter
@@ -127,13 +151,15 @@ function updateChoropleth() {
       .attr("class", function(d) {
         var id = dataMap.get(d.properties.adm0_a3_is);
         if (id) {
-          return "country " + quantize(dataMap.get(d.properties.adm0_a3_is));
+          return "country " + quantize(id);
         } else {
           return "country no-data";
         }
       })
       // .attr("class", function(d){return d.properties.adm0_a3_is;})
-      .attr("d", path);
+      .attr("d", path)
+      .on("mouseenter", tip.show)
+      .on("mouseleave", tip.hide);
 
   // Update
   svg.selectAll(".country")
