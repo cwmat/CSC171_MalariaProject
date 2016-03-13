@@ -174,6 +174,60 @@ function updateChoropleth() {
     }
   });
 
+  // Calculate breaks and add legend
+  var currentLegend = [],
+      dataDom = quantize.domain(),
+      span = (dataDom[1] - dataDom[0])/quantize.range().length,
+      breaks = d3.range(0, quantize.range().length).map(function(i) { return i * 1; });
+
+  breaks.forEach(function(d) {
+    var category = (d * span) + span;
+    currentLegend.push({
+      color: quantize(category),
+      num: Math.floor(category).toLocaleString("en-US")
+    });
+  });
+
+  // console.log(currentLegend);
+
+  var legend = svg.append("g")
+      .attr("class", "legend")
+      .attr("height", 100)
+      .attr("width", 100)
+      .attr('transform', 'translate(-20,50)')
+
+
+  var legendColor = legend.selectAll('.legend-color')
+      .data(currentLegend);
+
+  legendColor.enter()
+    .append("rect")
+      .attr("x", width - 65)
+      .attr("y", function(d, i){ return i *  20;})
+      .attr("width", 10)
+      .attr("height", 10)
+      .attr("class", function(d) { return "legend-color " + d.color; });
+
+var legendText = legend.selectAll(".legend-text")
+      .data(currentLegend);
+
+legendText.enter()
+    .append("text")
+      .attr("x", width - 52)
+      .attr("y", function(d, i){ return i *  20 + 9;})
+      .attr("class", "legend-text")
+      .text(function(d) { return d.num; });
+
+legendText.transition()
+    .duration(1000)
+    .text(function(d) { return d.num; });
+
+  legendText.exit().remove();
+  legendColor.exit().remove();
+  console.log(currentLegend);
+  currentLegend = undefined;
+  console.log(currentLegend);
+
 }
 
 // Helper
