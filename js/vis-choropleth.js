@@ -179,7 +179,7 @@ function updateChoropleth() {
       .attr("class", "legend")
       .attr("height", 100)
       .attr("width", 100)
-      .attr('transform', 'translate(250,50)')
+      .attr('transform', 'translate(-135,50)')
 
 
   var legendColor = legend.selectAll('.legend-color')
