@@ -52,16 +52,21 @@ d3.json("data/malaria-parasites.json", function(error, data) {
   		  return "translate(" + d.x + "," + d.y + ")"; });
 
     // Make dots for node locations
-    nodeData.append("circle")
+    nodeData.append("a")
+      .attr("xlink:href", function(d) { return d.href; })
+      .attr("target", "blank")
+    .append("circle")
   	  .attr("r", 5);
 
     // Add text labels
-    nodeData.append("text")
-  	  // .attr("x", function(d) { return d.children; })
-      .attr("dx", function(d) { return (d.name.length / 2) * -5; })
-  	  .attr("dy", -10)
-  	  .attr("text-anchor", function(d) { return d.children; })
-  	  .text(function(d) { return d.name; });
+    nodeData.append("a")
+        .attr("xlink:href", function(d) { return d.href; })
+        .attr("target", "blank")
+      .append("text")
+        .attr("dx", function(d) { return (d.name.length / 2) * -5; })
+    	  .attr("dy", -10)
+    	  .attr("text-anchor", function(d) { return d.children; })
+    	  .text(function(d) { return d.name; });
 
     // Create links
     var link = treeSvg.selectAll("path.link")
