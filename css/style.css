@@ -133,3 +133,24 @@
 #fund-data {
   margin-bottom: 2em;
 }
+
+/* Footer */
+footer {
+  background-color: black;
+  color: white;
+  padding: 3em;
+  margin-top: 5em;
+  font-weight: bold;
+}
+
+footer a {
+  color: rgb(219, 29, 236);
+}
+
+footer a:hover {
+  color: rgb(249, 242, 250);
+}
+
+footer a:visited {
+  color: rgb(219, 29, 236);
+}
