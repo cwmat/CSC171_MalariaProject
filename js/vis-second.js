@@ -1,6 +1,13 @@
 // Height and width
-var tWidth = 500,
+var tWidth = 550,
     tHeight = 500;
+
+var tMargin = {
+  top: 100,
+  right: 0,
+  bottom: 0,
+  left: 0
+};
 
 // Tree layout
 var tree = d3.layout.tree()
@@ -12,12 +19,12 @@ var diagonal = d3.svg.diagonal()
 
 // Make new SVG in DOM
 var treeSvg = d3.select("#tree-area").append("svg")
-      .attr("width", tWidth + margin.left + margin.right)
-      .attr("height", tHeight + margin.top + margin.bottom)
+      .attr("width", tWidth + tMargin.left + tMargin.right)
+      .attr("height", tHeight + tMargin.top + tMargin.bottom)
       .attr("viewBox", "0 0 " + tWidth + " " + tHeight)
       .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      .attr("transform", "translate(" + tMargin.left + "," + tMargin.top + ")");
 
 // Load the data
 d3.json("data/malaria-parasites.json", function(error, data) {
@@ -32,7 +39,7 @@ d3.json("data/malaria-parasites.json", function(error, data) {
         links = tree.links(nodes);
 
     // Reduce space between links
-    nodes.forEach(function(d) { d.y = d.depth * 100; });
+    nodes.forEach(function(d) { d.y = d.depth * 135; });
 
     // Initialize nodes
     var node = treeSvg.selectAll("g.node")
@@ -50,8 +57,8 @@ d3.json("data/malaria-parasites.json", function(error, data) {
 
     // Add text labels
     nodeData.append("text")
-  	  .attr("x", function(d) { return d.children; })
-      .attr("dx", -50)
+  	  // .attr("x", function(d) { return d.children; })
+      .attr("dx", function(d) { return (d.name.length / 2) * -5; })
   	  .attr("dy", -10)
   	  .attr("text-anchor", function(d) { return d.children; })
   	  .text(function(d) { return d.name; });

@@ -15,6 +15,11 @@
 .risk-q8-9 { fill: #800026; }
 .no-data { fill: rgb(129, 129, 129); }
 
+.country {
+  stroke: black;
+}
+
+/* https://github.com/Caged/d3-tip */
 .d3-tip {
   line-height: 1;
   font-weight: bold;
@@ -46,12 +51,22 @@
 
 /* Tree styles */
 .node circle {
-  fill: #fff;
-  stroke: steelblue;
+  fill: #fd8d3c;
+  stroke: #e31a1c;
   stroke-width: 3px;
 }
 
-.node text { font: 12px sans-serif; }
+.node circle:hover {
+  fill: #800026;
+  stroke: #800026;
+  stroke-width: 3px;
+}
+
+.node text {
+  font: 12px sans-serif;
+  font-weight: bold;
+  font-color: #fd8d3c;
+}
 
 .link {
   fill: none;
