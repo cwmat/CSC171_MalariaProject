@@ -1,35 +1,43 @@
 [{
   "name": "Plasmodium (Malaria Parasites)",
+  "href": "https://en.wikipedia.org/wiki/Plasmodium",
   "parent": "null",
   "children": [
     {
       "name": "Human-Human Transmission",
+      "href": "http://www.malaria.com/questions/transmission-of-malaria",
       "parent": "Plasmodium (Malaria Parasite)",
       "children": [
         {
           "name": "P. falciparum",
+          "href": "https://en.wikipedia.org/wiki/Plasmodium_falciparum",
           "parent": "Human-Human Transmission"
         },
         {
           "name": "P. vivax",
+          "href": "https://en.wikipedia.org/wiki/Plasmodium_vivax",
           "parent": "Human-Human Transmission"
         },
         {
           "name": "P. malariae",
+          "href": "https://en.wikipedia.org/wiki/Plasmodium_malariae",
           "parent": "Human-Human Transmission"
         },
         {
           "name": "P. ovale",
+          "href": "https://en.wikipedia.org/wiki/Plasmodium_ovale",
           "parent": "Human-Human Transmission"
         }
       ]
     },
     {
       "name": "Zoonotic Transmission",
+      "href": "http://www.cdc.gov/about/facts/cdcfastfacts/zoonotic.html",
       "parent": "Plasmodium (Malaria Parasite)",
       "children": [
         {
           "name": "P. knowlesi",
+          "href": "https://en.wikipedia.org/wiki/Plasmodium_knowlesi",
           "parent": "Zoonotic Transmission"
         }
        ]

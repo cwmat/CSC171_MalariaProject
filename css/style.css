@@ -49,6 +49,20 @@
   left: 0;
 }
 
+.d3-tip p.tip-header {
+  color: rgb(186, 109, 7);
+}
+
+.d3-tip p span.tip-label {
+  color: rgb(198, 167, 125);
+}
+
+.d3-tip p span.tip-content {
+  text-align: right;
+}
+
+
+
 /* Tree styles */
 .node circle {
   fill: #fd8d3c;

@@ -121,18 +121,18 @@ function updateChoropleth() {
   // Initialize tool tip
 	var tip = d3.tip()
               .attr('class', 'd3-tip')
-              .offset([-50, 0])
+              .offset([-10, 0])
               .html(function(d) {
                 var id = filterMalaria.filter(function(item) { if (item.Code == d.properties.adm0_a3_is) {return item;}})[0];
                 // console.log(id.Country);
                 var tooltip;
                 if (id) {
-                  tooltip = "<p>" + id.Country +
-                  "</p><p>" + id.UN_population +
-                  "</p><p>" + id.At_risk +
-                  "</p><p>" + id.At_high_risk +
-                  "</p><p>" + id.Suspected_malaria_cases +
-                  "</p><p>" + id.Malaria_cases + "</p>";
+                  tooltip = "<p class='tip-header'>" + id.Country +
+                  "</p><p><span class='tip-label'>Population: </span><span class='tip-content'>" + id.UN_population.toLocaleString("en-US") +
+                  "</span></p><p><span class='tip-label'>Population at Risk: </span><span class='tip-content'>" + id.At_risk.toLocaleString("en-US") + "%" +
+                  "</span></p><p><span class='tip-label'>Population at High Risk: </span><span class='tip-content'>" + id.At_high_risk.toLocaleString("en-US") + "%" +
+                  "</span></p><p><span class='tip-label'>Suspected Malaria Cases: </span><span class='tip-content'>" + id.Suspected_malaria_cases.toLocaleString("en-US") +
+                  "</span></p><p><span class='tip-label'>Recorded Malaria Cases: </span><span class='tip-content'>" + id.Malaria_cases.toLocaleString("en-US") + "</span></p>";
                 } else {
                   tooltip = "<p>No Data</p>"
                 }
