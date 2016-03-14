@@ -80,8 +80,7 @@ d3.csv("data/global-funding.csv", function(error, csv){
     }
   })[0];
 
-  console.log(totals);
-
+  // Update vis
   updateVis();
 });
 

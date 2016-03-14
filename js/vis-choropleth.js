@@ -1,9 +1,3 @@
-// Constants
-// var POP = ,
-//     RISK = ,
-//     HIGH_RISK = ,
-//     SUS_CASE
-
 // Create svg
 var margin = {
   top: 0,
@@ -18,8 +12,6 @@ var width = 550 - margin.left - margin.right,
 var svg = d3.select("#map-area").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
-      // .attr("viewBox", "0 0 " + width + " " + height)
-      // .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
       .attr("transform", "translate(" + -300 +  "," + margin.top + ")");
 
@@ -35,8 +27,6 @@ var dataMap = d3.map();
 
 // Create quantize color scale
 var quantize = d3.scale.quantize();
-    // .domain([0, 0.15])
-    // .range(d3.range(9).map(function(i) { return "risk-q" + i + "-9"; }));
 
 // Make data accessor var
 var africaData = {};
@@ -55,8 +45,6 @@ queue()
     } else {
       // Unpack topoJSON to geoJson
       africa = topojson.feature(mapData, mapData.objects.collection).features;
-
-      // console.log(africa);
 
       // Cycle through geoJSON data and create accessor object
       africa.forEach(function(geom) {
@@ -79,18 +67,7 @@ queue()
       filterMalaria.forEach(function(row) {
         // Set a variable equal to the propeties reference
         prop = africaData[row.Code];
-        // console.log(row.Code);
 
-        // Join data
-        // prop.WHO_region = row.WHO_region;
-        // prop.Country = row.Country;
-        // prop.UN_population = removeString(row.UN_population);
-        // prop.At_risk = removeString(row.At_risk);
-        // prop.At_high_risk = removeString(row.At_high_risk);
-        // prop.Suspected_malaria_cases = removeString(row.Suspected_malaria_cases);
-        // prop.Malaria_cases = removeString(row.Malaria_cases);
-      //   prop.WHO_region = row.WHO_region;
-        // prop.Country = row.Country;
         row.UN_population = removeString(row.UN_population);
         row.At_risk = removeString(row.At_risk);
         row.At_high_risk = removeString(row.At_high_risk);
@@ -113,7 +90,6 @@ function updateChoropleth() {
     dataMap.set(d.Code, d[currentSelection]);
   });
 
-  // console.log(dataMap);
   // Update domain
   quantize.domain(d3.extent(filterMalaria, function(d) { return d[currentSelection]; }))
           .range(d3.range(9).map(function(i) { return "risk-q" + i + "-9"; }));
@@ -124,7 +100,6 @@ function updateChoropleth() {
               .offset([-10, 0])
               .html(function(d) {
                 var id = filterMalaria.filter(function(item) { if (item.Code == d.properties.adm0_a3_is) {return item;}})[0];
-                // console.log(id.Country);
                 var tooltip;
                 if (id) {
                   tooltip = "<p class='tip-header'>" + id.Country +
@@ -156,15 +131,12 @@ function updateChoropleth() {
           return "country no-data";
         }
       })
-      // .attr("class", function(d){return d.properties.adm0_a3_is;})
       .attr("d", path)
       .on("mouseenter", tip.show)
       .on("mouseleave", tip.hide);
 
   // Update
   svg.selectAll(".country")
-  // .transition()
-  // .duration(2500)
   .attr("class", function(d) {
     var id = dataMap.get(d.properties.adm0_a3_is);
     if (id) {
@@ -199,11 +171,10 @@ function updateChoropleth() {
   // Add no data entry to legend
   currentLegend.push({color: "no-data", num: "Missing Data"});
 
-  // console.log(currentLegend);
-
   // Create legend (start by removing old one)
   $(".legend").empty();
 
+  // Add legend group
   var legend = svg.append("g")
       .attr("class", "legend")
       .attr("height", 100)
@@ -214,6 +185,7 @@ function updateChoropleth() {
   var legendColor = legend.selectAll('.legend-color')
       .data(currentLegend);
 
+  // Enter legend data
   legendColor.enter()
     .append("rect")
       .attr("x", width - 65)
@@ -222,22 +194,25 @@ function updateChoropleth() {
       .attr("height", 10)
       .attr("class", function(d) { return "legend-color " + d.color; });
 
-var legendText = legend.selectAll(".legend-text")
-      .data(currentLegend);
+  var legendText = legend.selectAll(".legend-text")
+        .data(currentLegend);
 
-legendText.enter()
-    .append("text")
-      .attr("x", width - 52)
-      .attr("y", function(d, i){ return i *  20 + 9;})
-      .attr("class", "legend-text")
+  // Enter legend text
+  legendText.enter()
+      .append("text")
+        .attr("x", width - 52)
+        .attr("y", function(d, i){ return i *  20 + 9;})
+        .attr("class", "legend-text")
+        .text(function(d) { return d.num; });
+
+  legendText.transition()
+      .duration(1000)
       .text(function(d) { return d.num; });
-
-legendText.transition()
-    .duration(1000)
-    .text(function(d) { return d.num; });
 
   legendText.exit().remove();
   legendColor.exit().remove();
+
+  // End updateChoropleth()
 }
 
 // Helper
@@ -247,15 +222,4 @@ function removeString(input) {
   } else {
     return +input;
   }
-}
-
-// Update data view
-function updateDataView() {
-  var currentSelection = d3.select("#chart-data-select").property("value");
-
-}
-
-// Hover
-function mapHover(data) {
-  // console.log(data.);
 }
