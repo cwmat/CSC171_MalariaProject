@@ -1,6 +1,6 @@
 // Height and width
 var tWidth = 550,
-    tHeight = 500;
+    tHeight = 400;
 
 var tMargin = {
   top: 100,

@@ -28,7 +28,7 @@
     </div>
   </nav>
 
-  <!-- Header Carousel -->
+  <!-- Header -->
   <header class="header">
     <img src="img/mosquito.jpg" alt="Mosquito biting a human hand" class="hero-image img-responsive">
   </header>
@@ -182,6 +182,92 @@
       <div class="col-md-6"><div id="tree-area"></div></div>
     </div>
 
+    <!-- Progress -->
+    <div class="row">
+      <div class="col-lg-12">
+        <h2 class="page-header">Progress</h2>
+      </div>
+      <div class="col-md-6">
+        <h3>Progress to elimination</h3>
+        <img src="" alt="" class="img-responsive">
+        <p>
+          An increasing number of countries are moving towards elimination of malaria. Whereas only 13 countries were estimated to have fewer than 1000 malaria cases in 2000, 33 countries are estimated to have achieved this milestone in 2015.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <h3>Financing of malaria control programmes</h3>
+        <img src="" alt="" class="img-responsive">
+        <p>
+          Global financing for malaria control increased from an estimated
+          US$ 960 million in 2005 to US$ 2.5 billion in 2014.
+        </p>
+      </div>
+      <div class="col-lg-12">
+        <h3>Moving forward</h3>
+        <p>
+          To address remaining challenges in global malaria control and elimination, WHO has developed the Global Technical Strategy for Malaria 2016-2030. Adopted by the World Health Assembly in May 2015, the strategy provides a technical framework for all endemic countries as they work towards malaria control and elimination. This Global Technical Strategy sets ambitious but achievable goals for 2030, including: reducing malaria case incidence by at least 90%; reducing malaria mortality rates by at least 90%; eliminating malaria in at least 35 countries; preventing a resurgence of malaria in all countries that are malaria-free. To achieve these targets, annual funding for malaria will need to triple over the next 15-year period, from US$ 2.7 billion (current level of spending) to US$ 8.7 billion by 2030.
+        </p>
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Funds -->
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- User input -->
+        <div id="fund-data">
+          <form class="time-period-form form-inline">
+            <span>
+              <label>Funding for year: </label>
+              <select id="fund-year" class="form-control" onchange="updateVis()">
+                <option value="2005">2005</option>
+                <option value="2006">2006</option>
+                <option value="2007">2007</option>
+                <option value="2008">2008</option>
+                <option value="2009">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+              </select>
+              <span id="fund-label">Total: </span><span id="fund-total"></span>
+            </span>
+          </form>
+        </div>
+        <div id="bar-chart"></div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Recommendations -->
+    <div class="row">
+      <div class="col-md-6">
+        <div>
+          <h2 class="page-header">WHO Recommendations</h2>
+          <p>
+            International travellers could be at risk of malaria infection in 97 countries around the world, mostly in Africa, Asia and the Americas.
+          </p>
+          <p>
+            Prevention of mosquito bites between dusk and dawn is the first line of defence against malaria. Measures to prevent mosquito bites include sleeping under long-lasting insecticidal nets, and using protective clothing and insect repellents. Depending on the malaria risk in the area to be visited, international travellers may also need to take preventive medication (chemoprophylaxis) prior to, during, and upon return from their travel.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <img src="" alt="" class="img-responsive">
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Footer -->
+    <footer>
+      <div class="row">
+        <div class="col-lg-12">
+          <p>Github: <a href="https://github.com/cwmat/CSC171_HW4">https://github.com/cwmat/CSC171_MalariaProject</a></p>
+        </div>
+      </div>
+      <!-- /.row -->
+    </footer>
+
     <!-- End container -->
 
     <!-- Load JS libraries -->
@@ -195,6 +281,7 @@
     <!-- Choropleth and second visualization -->
     <script src="js/vis-choropleth.js"></script>
     <script src="js/vis-second.js"></script>
+    <script src="js/bar-chart.js"></script>
 
   </body>
 </html>
